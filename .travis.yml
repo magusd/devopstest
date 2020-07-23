@@ -7,7 +7,7 @@ before_install:
 - docker build -t unclelobs/devops:latest .
 
 script:
-- docker run unclelobs/devops:latest test
+- docker run unclelobs/devops:latest carta-devops test
 
 deploy:
   provider: script
