@@ -4,13 +4,14 @@ services:
   - docker
 
 before_install:
-- docker build -t unclelobs/devops:latest .
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+- docker build -t $DOCKER_USERNAME/devops:latest .
 
-script:
-- docker run unclelobs/devops:latest carta-devops test
+jobs:
+  include:
+    - stage: "Tests"
+      script:
+      - docker run $DOCKER_USERNAME/devops:latest carta-devops test
+    - stage: "Publish"
+      script: docker push $DOCKER_USERNAME/devops:latest
 
-deploy:
-  provider: script
-  script: bash docker_push
-  on:
-    branch: master
