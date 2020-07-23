@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: devops-test
+    env: staging
+  name: devops-test
+  namespace: default
+spec:
+  containers:
+  - image: unclelobs/carta-devops
+    imagePullPolicy: IfNotPresent
+    name: app
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+  terminationGracePeriodSeconds: 0
